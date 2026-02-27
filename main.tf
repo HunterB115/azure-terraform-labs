@@ -11,22 +11,31 @@ terraform {
    features {}
 }
 
-locals {
-    prefix = "contoso"
-    region = "UK South"
-    tags = {
-        cost_center = "contoso research"
+variable "prefix" {}
+
+variable "region" {
+    type = string
+    default = "East US"
+    description = "The Azure region to deploy resources"
+    validation {
+        condition = contains(["UK South", "UK West", "North Europe", "West Europe", "East US", "West US"], var.region)
+        error_message = "Invalid Region"
     }
 }
 
+variable "tags" {
+    type = map(any)
+    description = "a map of tags"
+}
+
  resource "azurerm_resource_group" "contoso_rg" {
-   name     = "${local.prefix}_rg"
-   location = local.region
-   tags = local.tags
+   name     = "${var.prefix}_rg"
+   location = var.region
+   tags = var.tags
 }
 
  resource "azurerm_resource_group" "contoso_dev_rg" {
-    name = "${local.prefix}_dev_rg"
-    location = local.region
-    tags = local.tags
+    name = "${var.prefix}_dev_rg"
+    location = var.region
+    tags = var.tags
 }
