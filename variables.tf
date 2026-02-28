@@ -1,3 +1,8 @@
+variable resource_groups {
+    type = map(string)
+    description = "The resource groups to deploy"
+}
+
 variable "prefix" {}
 
 variable "region" {
