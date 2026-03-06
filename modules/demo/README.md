@@ -1,0 +1,1 @@
+moved resources to a module
