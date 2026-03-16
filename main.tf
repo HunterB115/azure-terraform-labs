@@ -5,6 +5,7 @@ terraform {
       version = "~> 4.0"
     }
   }
+  backend "azurerm" {}
 }
 
 provider "azurerm" {
@@ -34,4 +35,8 @@ moved {
 moved {
   from = azurerm_subnet.demo
   to   = module.demo.azurerm_subnet.demo
+}
+
+module "storage" {
+  source = "./modules/storage"
 }
